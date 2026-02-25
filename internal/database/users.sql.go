@@ -25,7 +25,6 @@ type CreateUserParams struct {
 	CreatedAt string
 	UpdatedAt string
 	Name      string
-	ApiKey    string
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) error {
@@ -34,7 +33,6 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) error {
 		arg.CreatedAt,
 		arg.UpdatedAt,
 		arg.Name,
-		arg.ApiKey,
 	)
 	return err
 }
@@ -52,7 +50,6 @@ func (q *Queries) GetUser(ctx context.Context, apiKey string) (User, error) {
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.Name,
-		&i.ApiKey,
 	)
 	return i, err
 }
