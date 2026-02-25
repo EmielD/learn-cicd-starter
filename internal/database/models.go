@@ -10,6 +10,7 @@ type Note struct {
 	UpdatedAt string
 	Note      string
 	UserID    string
+	ApiKey    string // #nosec G117
 }
 
 type User struct {
@@ -17,4 +18,5 @@ type User struct {
 	CreatedAt string
 	UpdatedAt string
 	Name      string
+	ApiKey    string // #nosec G117
 }
