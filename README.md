@@ -1,4 +1,4 @@
-![Test coverage](https://github.com/EmielD/learn-cicd-starter/actions/workflows/ci/badge.svg)
+![Test coverage](https://github.com/EmielD/learn-cicd-starter/actions/workflows/ci.yml/badge.svg)
 
 # learn-cicd-starter (Notely)
 
