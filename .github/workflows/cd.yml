@@ -8,6 +8,8 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    env: 
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
     permissions:
       contents: read
       id-token: write
@@ -15,18 +17,21 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
-
+    
       - id: 'auth'
         uses: 'google-github-actions/auth@v2'
         with:
             workload_identity_provider: 'projects/168570921691/locations/global/workloadIdentityPools/github-pool/providers/github'
             service_account: 'cloud-run-deployer@notely-488509.iam.gserviceaccount.com'
-
+            
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.25.1'
+            go-version: '1.25.1'    
       
+      - name: Install goose
+        run: go install github.com/pressly/goose/v3/cmd/goose@latest
+    
       - name: Build app
         run: ./scripts/buildprod.sh
 
@@ -34,6 +39,9 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v3'
         with:
           version: '>= 363.0.0'
+
+      - name: 'Run migrations'
+        run: ./scripts/migrateup.sh
 
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
